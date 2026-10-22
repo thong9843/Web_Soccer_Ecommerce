@@ -1,0 +1,19 @@
+node_modules
+dist
+.next
+coverage
+*.tsbuildinfo
+.turbo
+
+# secrets / env
+.env
+.env.*
+!.env.example
+
+# local dev database
+.pgdata
+apps/api/src/generated
+
+# misc
+.DS_Store
+*.log

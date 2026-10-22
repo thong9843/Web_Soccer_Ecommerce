@@ -1,0 +1,24 @@
+# Dùng khi máy có Docker. Nếu không có Docker, xem `pnpm db:start` (Postgres nhúng) trong README.
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: football
+      POSTGRES_PASSWORD: football
+      POSTGRES_DB: football
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Chỉ chạy lần đầu khi volume còn trống; nếu đã có volume cũ, tạo tay: createdb football_test
+      - ./docker/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+
+volumes:
+  pgdata:
